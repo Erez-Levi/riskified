@@ -8,4 +8,4 @@ spec:
     image: {{ .Values.pod.image }}:{{ .Values.pod.tag }}
     env:
     - name: RESPONSE
-      value: {{ .values.pod.response }}
+      value: {{ .Values.pod.response }}
