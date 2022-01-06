@@ -1,0 +1,4 @@
+  pod:
+    image: "app-image"
+    tag: 1.0
+    response: "Welcome Erez!"
