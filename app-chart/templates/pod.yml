@@ -6,8 +6,6 @@ spec:
   containers:
   - name: app-pod
     image: {{ .Values.pod.image }}:{{ .Values.pod.tag }}
-    ports:
-     - containerPort: 80
     env:
     - name: RESPONSE
       value: {{ .values.pod.response }}
