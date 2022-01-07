@@ -9,9 +9,14 @@ data:
       format none
       path /var/log/messages.log
       pos_file /var/log/messages.log.pos
-      tag mytag
+      tag app
     </source>
 
-    <match mytag**>
-       @type stdout
+    <filter app>
+      @type grep
+        exclude1 message filtered
+    </filter>
+
+    <match app>
+      @type stdout
     </match>
