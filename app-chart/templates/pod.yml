@@ -1,11 +1,22 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: app  
+  name: app-pod
+  labels:
+    app: app
 spec:
   containers:
   - name: app-pod
     image: {{ .Values.pod.image }}:{{ .Values.pod.tag }}
+    ports:
+    - containerPort: 8080
     env:
     - name: RESPONSE
       value: {{ .Values.pod.response }}
+    volumeMounts:
+      - name: app-volume
+        mountPath: /opt/app-volume
+  volumes:
+    - name: app-volume
+      persistentVolumeClaim:
+        claimName: my-claim

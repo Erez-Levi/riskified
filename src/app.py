@@ -1,16 +1,18 @@
-from flask import Flask
+from flask import Flask, request
 import os
 
-
-os.environ['RESPONSE'] = 'Hello World'
 
 api = Flask(__name__)
 
 
 @api.route('/messages', methods=['GET'])
 def get():
-    print(os.environ['RESPONSE'])
+    key = request.args.get('word')
+    f = open("/opt/app-volume/messages.log", "a")
+    f.write(key + "\n")
+    f.close()
+    return(os.environ['RESPONSE'])
 
 
 if __name__ == "__main__":
-    api.run(debug=True, port=80, host="0.0.0.0")
+    api.run(debug=True, port=8080, host="0.0.0.0")

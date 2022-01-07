@@ -1,4 +1,4 @@
   pod:
     image: "erzez/app"
-    tag: 1.0
-    response: "Welcome Erez!"
+    tag: "1.9"
+    response: "Hii Erez Levy!"
