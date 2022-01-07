@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+data:
+  fluentd.conf: |
+    <source>
+      @type tail
+      format none
+      path /var/log/messages.log
+      pos_file /var/log/messages.log.pos
+      tag mytag
+    </source>
+
+    <match mytag**>
+       @type stdout
+    </match>
