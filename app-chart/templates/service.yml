@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-svc
+  name: {{ .Values.services.name }}
 spec:
   type: ClusterIP
   selector:
-    app: app
+{{ toYaml .Values.label | indent 4 }}
   ports:
     - protocol: TCP
       targetPort: 8080
-      port: 8080
+      port: {{ .Values.services.port }}

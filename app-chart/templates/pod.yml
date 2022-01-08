@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: app-pod
+  name: {{ .Values.pod.name }}
   labels:
-    app: app
+{{ toYaml .Values.label | indent 4 }}
 spec:
   containers:
-  - name: app-pod
+  - name: {{ .Values.pod.containerName }}
     image: {{ .Values.pod.image }}:{{ .Values.pod.tag }}
     ports:
     - containerPort: 8080
@@ -14,22 +14,22 @@ spec:
     - name: RESPONSE
       value: {{ .Values.pod.response }}
     volumeMounts:
-    - name: app-volume
-      mountPath: /opt/app-volume
-  - name: count-agent
+    - name: {{ .Values.volumes.logs.name }}
+      mountPath: "/opt/app-volume"
+  - name: {{ .Values.sidecar_in_pod.name }}
     env:
     - name: FLUENTD_CONF
       value: /opt/fluentd/fluentd.conf
-    image: erzez/fluentd:1.5
+    image: {{ .Values.sidecar_in_pod.image }}:{{ .Values.sidecar_in_pod.tag }}
     volumeMounts:
-    - name: app-volume
+    - name: {{ .Values.volumes.logs.name }}
       mountPath: /var/log
-    - name: config-volume
-      mountPath: /opt/fluentd/
+    - name: {{ .Values.volumes.fluentd.name }}
+      mountPath: "/opt/fluentd"
   volumes:
-    - name: app-volume
+    - name: {{ .Values.volumes.logs.name }}
       persistentVolumeClaim:
-        claimName: my-claim
-    - name: config-volume
+        claimName: {{ .Values.persistentVolumeClaim.name }}
+    - name: {{ .Values.volumes.fluentd.name }}
       configMap:
-        name: fluentd-config
+        name: {{ .Values.configMap.name }}

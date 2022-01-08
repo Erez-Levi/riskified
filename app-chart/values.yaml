@@ -1,4 +1,35 @@
   pod:
+    name: "app"
+    containerName: "flask"
     image: "erzez/app"
     tag: "1.9"
     response: "Hii Erez Levy!"
+  sidecar_in_pod:
+    name: "sidecar"
+    image: "erzez/fluentd"
+    tag: "1.5"
+  
+  services:
+    name: "app-svc"
+    port: "8080"
+
+  configMap:
+    name: "fluentd-config"
+  
+  volumes:
+    fluentd:
+      name: "fluentd-volume"
+    logs:
+      name: "app-volume"
+
+  StorageClass:
+    name: "my-local-storage"
+  
+  persistentVolume:
+    name: "my-local-pv"
+
+  persistentVolumeClaim:
+    name: "my-claim"
+
+  label:
+    app: "app"
