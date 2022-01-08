@@ -14,7 +14,10 @@ data:
 
     <filter app>
       @type grep
-        exclude1 message filtered
+      <exclude> 
+        key message 
+        pattern /filtered/
+      </exclude> 
     </filter>
 
     <match app>

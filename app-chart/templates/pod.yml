@@ -17,15 +17,15 @@ spec:
     - name: app-volume
       mountPath: /opt/app-volume
   - name: count-agent
-    image: k8s.gcr.io/fluentd-gcp:1.30
     env:
-    - name: FLUENTD_ARGS
-      value: -c /etc/fluentd-config/fluentd.conf
+    - name: FLUENTD_CONF
+      value: /opt/fluentd/fluentd.conf
+    image: erzez/fluentd:1.5
     volumeMounts:
     - name: app-volume
       mountPath: /var/log
     - name: config-volume
-      mountPath: /etc/fluentd-config    
+      mountPath: /opt/fluentd/
   volumes:
     - name: app-volume
       persistentVolumeClaim:
